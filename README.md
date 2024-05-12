@@ -1,2 +1,2 @@
-(https://github.com/RomaGenZa/mesto-project-ff.git)
+https://github.com/RomaGenZa/mesto-project-ff.git
 
