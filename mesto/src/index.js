@@ -73,4 +73,17 @@ const pictures = [
   {name: 'logo', link: logo},
 ];
 
-import '../pages/index.css'; // добавьте импорт главного файла стилей
+import '../pages/index.css'; // импорт главного файла стилей
+
+const buttonOpenPopup = document.querySelector('.profile__edit-button');
+const popup = document.querySelector('.popup_type_new-card');
+const buttonClosePopup = popup.querySelector('.popup__close');
+
+buttonOpenPopup.addEventListener('click', function(evt) {
+  evt.preventDefault();
+  popup.style.display = 'flex';
+})
+
+buttonClosePopup.addEventListener('click', function(evt) {
+  popup.style.display = 'none';
+})
