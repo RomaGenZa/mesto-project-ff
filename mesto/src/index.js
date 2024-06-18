@@ -1,5 +1,12 @@
-//импорт карточек из cards.js
-import { initialCards } from '../scripts/cards';
+// импорт карточек из cards.js
+import { initialCards } from '../scripts/cards.js';
+
+// импорт главного файла стилей
+import '../pages/index.css'; 
+
+// импорт popup 
+import { configureProfileEditPopup } from './configureProfileEditPopup';
+configureProfileEditPopup();
 
 // @todo: Темплейт карточки
 const template = document.querySelector('#card-template').content;
@@ -72,18 +79,3 @@ const pictures = [
   {name: 'inactive', link: inactive},
   {name: 'logo', link: logo},
 ];
-
-import '../pages/index.css'; // импорт главного файла стилей
-
-const buttonOpenPopup = document.querySelector('.profile__edit-button');
-const popup = document.querySelector('.popup_type_new-card');
-const buttonClosePopup = popup.querySelector('.popup__close');
-
-buttonOpenPopup.addEventListener('click', function(evt) {
-  evt.preventDefault();
-  popup.style.display = 'flex';
-})
-
-buttonClosePopup.addEventListener('click', function(evt) {
-  popup.style.display = 'none';
-})
