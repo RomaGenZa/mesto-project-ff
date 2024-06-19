@@ -7,7 +7,9 @@ function configureProfileEditPopup() {
   const buttonCloseP = popupNewCard.querySelector(".popup__close");
 
   buttonProfile.addEventListener("click", function (evt) {
+    console.log('Ай');
     evt.preventDefault();
+    console.log('Ый');
     popupProfile.style.display = "flex";
   });
 
@@ -15,6 +17,24 @@ function configureProfileEditPopup() {
     popupProfile.style.display = "none";
   });
 
+  const popcontent = document.querySelector('.popup__content');
+  popupProfile.addEventListener('click', function(evt) {
+    console.log('Ой');
+    // const outside = evt.composedPath().includes(popupProfile);
+    console.log('Эй');
+    console.log(evt);
+    // if (!outside) {
+      
+    // };
+    if (!popcontent.contains(evt.target)){
+      popupProfile.style.display = "none";
+      // Clicked in box
+    } 
+      
+      // Clicked outside the box
+    
+  });
+  
   buttonNewCards.addEventListener("click", function (evt) {
     evt.preventDefault();
     popupNewCard.style.display = "flex";
@@ -24,5 +44,7 @@ function configureProfileEditPopup() {
     popupNewCard.style.display = "none";
   });
 }
+
+
 
 export {configureProfileEditPopup};

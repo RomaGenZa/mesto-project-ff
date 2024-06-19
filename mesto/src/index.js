@@ -79,3 +79,4 @@ const pictures = [
   {name: 'inactive', link: inactive},
   {name: 'logo', link: logo},
 ];
+
