@@ -1,3 +1,5 @@
+import {popupContent as pC} from './index'
+
 function configureProfileEditPopup() {
   const buttonProfile = document.querySelector(".profile__edit-button");
   const popupProfile = document.querySelector(".popup_type_edit");
@@ -12,11 +14,16 @@ function configureProfileEditPopup() {
     popupProfile.style.display = "none";
   });
 
-  const popcontent = document.querySelector('.popup__content');
   popupProfile.addEventListener('click', function(evt) {
-    if (!popcontent.contains(evt.target)){
+    if (!pC.contains(evt.target)){
       popupProfile.style.display = "none";
     } 
+  });
+
+  popupProfile.addEventListener('keydown', function(evt) {
+    if (evt.key === 27) {
+      popupProfile.style.display = "none";
+    }
   });
 }
 

@@ -1,3 +1,5 @@
+import {popupContent as pC} from './index'
+
 function configureCardsEditPopup() {
   const buttonNewCards = document.querySelector('.profile__add-button');
   const popupNewCard = document.querySelector(".popup_type_new-card");
@@ -10,6 +12,12 @@ function configureCardsEditPopup() {
 
   buttonCloseP.addEventListener("click", function () {
     popupNewCard.style.display = "none";
+  });
+
+  popupNewCard.addEventListener('click', function(evt) {
+    if (!pC.contains(evt.target)){
+      popupNewCard.style.display = "none";
+    } 
   });
 }
 

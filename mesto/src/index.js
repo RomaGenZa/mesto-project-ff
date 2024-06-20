@@ -12,6 +12,9 @@ configureProfileEditPopup();
 import { configureCardsEditPopup } from './configureCardsEditPopup';
 configureCardsEditPopup();
 
+//экспорт <div class="popup__content"> 
+export const popupContent = document.querySelector('.popup__content');
+
 // @todo: Темплейт карточки
 const template = document.querySelector('#card-template').content;
 
