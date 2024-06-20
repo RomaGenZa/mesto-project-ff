@@ -5,11 +5,12 @@ function configureProfileEditPopup() {
   const popupProfile = document.querySelector(".popup_type_edit");
   const buttonClosePopup = popupProfile.querySelector(".popup__close");
 
-  buttonProfile.addEventListener("click", function (evt) {
+  function addPopup(evt) {
     evt.preventDefault();
     popupProfile.style.display = "flex";
-  });
-
+  };
+  buttonProfile.addEventListener("click", addPopup);
+  
   buttonClosePopup.addEventListener("click", function () {
     popupProfile.style.display = "none";
   });
@@ -23,6 +24,7 @@ function configureProfileEditPopup() {
   popupProfile.addEventListener('keydown', function(evt) {
     if (evt.key === 27) {
       popupProfile.style.display = "none";
+      buttonProfile.removeEventListener("click", addPopup);
     }
   });
 }
