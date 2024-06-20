@@ -1,4 +1,4 @@
-import {popupContent as pC} from './index'
+import { popupContent as pC } from "./index";
 
 function configureProfileEditPopup() {
   const buttonProfile = document.querySelector(".profile__edit-button");
@@ -8,25 +8,26 @@ function configureProfileEditPopup() {
   function addPopup(evt) {
     evt.preventDefault();
     popupProfile.style.display = "flex";
-  };
+    document.addEventListener("keydown", OnEscapePressed);
+  }
   buttonProfile.addEventListener("click", addPopup);
-  
-  buttonClosePopup.addEventListener("click", function () {
+
+  function closePopup() {
     popupProfile.style.display = "none";
-  });
+  }
+  buttonClosePopup.addEventListener("click", closePopup);
 
-  popupProfile.addEventListener('click', function(evt) {
-    if (!pC.contains(evt.target)){
+  popupProfile.addEventListener("click", function (evt) {
+    if (!pC.contains(evt.target)) {
       popupProfile.style.display = "none";
-    } 
-  });
-
-  popupProfile.addEventListener('keydown', function(evt) {
-    if (evt.key === 27) {
-      popupProfile.style.display = "none";
-      buttonProfile.removeEventListener("click", addPopup);
     }
   });
-}
 
-export {configureProfileEditPopup};
+  function OnEscapePressed(evt) {
+    if (evt.key === "Escape") {
+      popupProfile.style.display = "none";
+      document.removeEventListener("keydown", OnEscapePressed);
+    }
+  }
+}
+export { configureProfileEditPopup };
