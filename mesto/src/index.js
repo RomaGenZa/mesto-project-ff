@@ -4,9 +4,13 @@ import { initialCards } from '../scripts/cards.js';
 // импорт главного файла стилей
 import '../pages/index.css'; 
 
-// импорт popup 
+// импорт popup настройки профиля
 import { configureProfileEditPopup } from './configureProfileEditPopup';
 configureProfileEditPopup();
+
+//импорт popup настройки карточек
+import { configureCardsEditPopup } from './configureCardsEditPopup';
+configureCardsEditPopup();
 
 // @todo: Темплейт карточки
 const template = document.querySelector('#card-template').content;
@@ -39,20 +43,6 @@ initialCards.forEach(function(cardData) {
   cardsContainer.append(card);
 }); 
 
-// const pictures = [
-//   {name: 'icon', link: '../images/add-icon.svg'},
-//   {name: 'avatar', link: '../images/avatar.jpg'},
-//   {name: 'card_1', link: '../images/card_1.jpg'},
-//   {name: 'card_2', link: '../images/card_2.jpg'},
-//   {name: 'card_3', link: '../images/card_3.jpg'},
-//   {name: 'close', link: '../images/close.svg'},
-//   {name: 'delete', link: '../images/delete-icon.svg'},
-//   {name: 'edit', link: '../images/edit-icon.svg'},
-//   {name: 'active', link: '../images/like-active.svg'},
-//   {name: 'inactive', link: '../images/like-inactive.svg'},
-//   {name: 'logo', link: '../images/logo.svg'},
-// ];
-
 import icon from '../images/add-icon.svg';
 import avatar from '../images/avatar.jpg';
 import card_1 from '../images/card_1.jpg';
@@ -64,7 +54,6 @@ import edit from '../images/edit-icon.svg';
 import active from '../images/like-active.svg';
 import inactive from '../images/like-inactive.svg';
 import logo from '../images/logo.svg';
-
 
 const pictures = [
   {name: 'icon', link: icon},
@@ -79,4 +68,3 @@ const pictures = [
   {name: 'inactive', link: inactive},
   {name: 'logo', link: logo},
 ];
-
