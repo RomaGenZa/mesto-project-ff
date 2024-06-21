@@ -8,6 +8,7 @@ function configureCardsEditPopup() {
   buttonNewCards.addEventListener("click", function (evt) {
     evt.preventDefault();
     popupNewCard.style.display = "flex";
+    document.addEventListener("keydown", OnEscPressed);
   });
 
   buttonCloseP.addEventListener("click", function () {
@@ -19,6 +20,13 @@ function configureCardsEditPopup() {
       popupNewCard.style.display = "none";
     } 
   });
+
+  function OnEscPressed(evt) {
+    if (evt.key === "Escape") {
+      popupNewCard.style.display = "none";
+      document.removeEventListener("keydown", OnEscPressed);
+    }
+  }
 }
 
 export {configureCardsEditPopup};

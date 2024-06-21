@@ -5,29 +5,28 @@ function configureProfileEditPopup() {
   const popupProfile = document.querySelector(".popup_type_edit");
   const buttonClosePopup = popupProfile.querySelector(".popup__close");
 
-  function addPopup(evt) {
+  buttonProfile.addEventListener("click", function(evt) {
     evt.preventDefault();
     popupProfile.style.display = "flex";
-    document.addEventListener("keydown", OnEscapePressed);
-  }
-  buttonProfile.addEventListener("click", addPopup);
-
-  function closePopup() {
+    document.addEventListener("keydown", OnEscPressed);
+  })
+  
+  buttonClosePopup.addEventListener("click", function() {
     popupProfile.style.display = "none";
-  }
-  buttonClosePopup.addEventListener("click", closePopup);
-
+  })
+  
   popupProfile.addEventListener("click", function (evt) {
     if (!pC.contains(evt.target)) {
       popupProfile.style.display = "none";
     }
   });
 
-  function OnEscapePressed(evt) {
+  function OnEscPressed(evt) {
     if (evt.key === "Escape") {
       popupProfile.style.display = "none";
-      document.removeEventListener("keydown", OnEscapePressed);
+      document.removeEventListener("keydown", OnEscPressed);
     }
   }
 }
+
 export { configureProfileEditPopup };
