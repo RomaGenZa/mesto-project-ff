@@ -1,4 +1,5 @@
 import { popupContent as pC } from "./index";
+import {OnEscPressedHandler} from './OnEscPressedHandler';
 
 function configureProfileEditPopup() {
   const buttonProfile = document.querySelector(".profile__edit-button");
@@ -8,7 +9,7 @@ function configureProfileEditPopup() {
   buttonProfile.addEventListener("click", function(evt) {
     evt.preventDefault();
     popupProfile.style.display = "flex";
-    document.addEventListener("keydown", OnEscPressed);
+    document.addEventListener("keydown", OnEscPressedHandler);
   })
   
   buttonClosePopup.addEventListener("click", function() {
@@ -20,13 +21,6 @@ function configureProfileEditPopup() {
       popupProfile.style.display = "none";
     }
   });
-
-  function OnEscPressed(evt) {
-    if (evt.key === "Escape") {
-      popupProfile.style.display = "none";
-      document.removeEventListener("keydown", OnEscPressed);
-    }
-  }
 }
 
 export { configureProfileEditPopup };

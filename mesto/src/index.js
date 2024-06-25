@@ -12,6 +12,13 @@ configureProfileEditPopup();
 import { configureCardsEditPopup } from './configureCardsEditPopup';
 configureCardsEditPopup();
 
+import {OnEscPressedHandler} from './OnEscPressedHandler.js';
+
+
+// //импорт открытие карточек
+// import { openCards } from './openCards';
+// openCards();
+
 //экспорт <div class="popup__content"> 
 export const popupContent = document.querySelector('.popup__content');
 
@@ -32,8 +39,29 @@ function createCard(cardData, deleteCardCallback) {
   basket.addEventListener('click', function() {
     deleteCardCallback(cardElement);
   })
+
+  cardElement.addEventListener('click', function(){
+    const popCard = document.querySelector('.popup_type_image');
+
+    const btnClose = popCard.querySelector('.popup__close');  
+    btnClose.addEventListener('click', function() {
+      popCard.style.display = "none";
+    })
+
+    const contentImg = popCard.querySelector('.popup__image');
+    contentImg.src = cardData.link;
+    contentImg.alt = cardData.name;
+
+    const contentTxt = popCard.querySelector('.popup__caption');
+    contentTxt.textContent = cardData.name;
+
+    popCard.style.display = "flex";
+    document.addEventListener("keydown", OnEscPressedHandler);
+  })
   return cloneTemplate;
 }
+
+
 
 // @todo: Функция удаления карточки
 function deleteCard (cardElement) {

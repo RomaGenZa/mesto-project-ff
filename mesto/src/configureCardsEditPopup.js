@@ -1,32 +1,26 @@
-import {popupContent as pC} from './index'
+import { popupContent as pC } from './index'
+import {OnEscPressedHandler} from './OnEscPressedHandler';
 
 function configureCardsEditPopup() {
-  const buttonNewCards = document.querySelector('.profile__add-button');
-  const popupNewCard = document.querySelector(".popup_type_new-card");
-  const buttonCloseP = popupNewCard.querySelector(".popup__close");
+  const buttonNewPlace = document.querySelector('.profile__add-button');
+  const popupNewPlace = document.querySelector(".popup_type_new-card");
+  const btnClosePopupNewPlace = popupNewPlace.querySelector(".popup__close");
 
-  buttonNewCards.addEventListener("click", function (evt) {
+  buttonNewPlace.addEventListener("click", function (evt) {
     evt.preventDefault();
-    popupNewCard.style.display = "flex";
-    document.addEventListener("keydown", OnEscPressed);
+    popupNewPlace.style.display = "flex";
+    document.addEventListener("keydown", OnEscPressedHandler);
   });
 
-  buttonCloseP.addEventListener("click", function () {
-    popupNewCard.style.display = "none";
+  btnClosePopupNewPlace.addEventListener("click", function () {
+    popupNewPlace.style.display = "none";
   });
 
-  popupNewCard.addEventListener('click', function(evt) {
+  popupNewPlace.addEventListener('click', function(evt) {
     if (!pC.contains(evt.target)){
-      popupNewCard.style.display = "none";
+      popupNewPlace.style.display = "none";
     } 
   });
-
-  function OnEscPressed(evt) {
-    if (evt.key === "Escape") {
-      popupNewCard.style.display = "none";
-      document.removeEventListener("keydown", OnEscPressed);
-    }
-  }
 }
 
 export {configureCardsEditPopup};
