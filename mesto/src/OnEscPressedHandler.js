@@ -1,5 +1,8 @@
-export {OnEscPressedHandler};
 
+export {OnEscPressedHandler};
+import {smoothClosingPopups} from './smoothClosingPopups'
+
+//закрытие popup клавишей Escape 
 function OnEscPressedHandler(evt) {
   if (evt.key === "Escape") {
     const popups = [
@@ -9,7 +12,7 @@ function OnEscPressedHandler(evt) {
     ];
     
     popups.forEach(function (popup) {
-      popup.style.display = "none";
+      smoothClosingPopups(popup);
     })
     
     document.removeEventListener("keydown", OnEscPressedHandler);
