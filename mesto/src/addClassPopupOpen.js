@@ -9,6 +9,5 @@ function addClassPopupOpen() {
     popup.classList.add("popup_is-animated");
   });
 }
-addClassPopupOpen();
 
 export { addClassPopupOpen };

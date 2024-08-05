@@ -107,32 +107,6 @@ function addCards() {
 }
 addCards();
 
-import icon from "../images/add-icon.svg";
-import avatar from "../images/avatar.jpg";
-import card_1 from "../images/card_1.jpg";
-import card_2 from "../images/card_2.jpg";
-import card_3 from "../images/card_3.jpg";
-import close from "../images/close.svg";
-import del from "../images/delete-icon.svg";
-import edit from "../images/edit-icon.svg";
-import active from "../images/like-active.svg";
-import inactive from "../images/like-inactive.svg";
-import logo from "../images/logo.svg";
-
-const pictures = [
-  { name: "icon", link: icon },
-  { name: "avatar", link: avatar },
-  { name: "card_1", link: card_1 },
-  { name: "card_2", link: card_2 },
-  { name: "card_3", link: card_3 },
-  { name: "close", link: close },
-  { name: "delete", link: del },
-  { name: "edit", link: edit },
-  { name: "active", link: active },
-  { name: "inactive", link: inactive },
-  { name: "logo", link: logo },
-];
-
 // экспорт <div class="popup__content"> для реализации закрытия popup кликом вне popup__content
 export const popupContent = document.querySelector(".popup__content");
 
