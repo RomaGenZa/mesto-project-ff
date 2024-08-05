@@ -1,6 +1,2 @@
-<<<<<<< HEAD
-https://github.com/RomaGenZa/mesto-project-ff.git
+# Проектная работа Mesto
 
-=======
-https://github.com/RomaGenZa/mesto_2.git
->>>>>>> c1c0199 (Create README.md)
