@@ -1,4 +1,4 @@
-import{createAndAddCard} from './index';
+import{createAndAddCard} from './cardsActions';
 import {smoothClosingPopups} from './smoothClosingPopups';
 
 
