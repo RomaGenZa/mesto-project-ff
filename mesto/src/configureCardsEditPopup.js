@@ -1,10 +1,26 @@
 import {OnEscPressedHandler} from './OnEscPressedHandler';
 import {smoothClosingPopups} from './smoothClosingPopups';
 import{createAndAddCard} from './index';
+
 const popupNewPlace = document.querySelector(".popup_type_new-card");
+const formNewPlace = document.forms['new-place'];
 
+// добавление карточек 
+formNewPlace.addEventListener('submit', function(evt) {
+  const inputPlaceName = formNewPlace.elements['place-name'];
+  const inputPlaceLink = formNewPlace.elements.link;
+  evt.preventDefault();
+  const cardData = {
+    name: inputPlaceName.value,
+    link: inputPlaceLink.value
+  };
+  
+  createAndAddCard(cardData);
 
-// настройка popup добавления новых карточек
+  smoothClosingPopups(popupNewPlace);
+})
+
+// настройка popup "добавления карточек"
 function configureCardsEditPopup() {
   const buttonNewPlace = document.querySelector('.profile__add-button');
   const popupNewPlace = document.querySelector(".popup_type_new-card");
@@ -29,24 +45,7 @@ function configureCardsEditPopup() {
   });
 }
 
-// добавление карточек 
-const formNewPlace = document.forms['new-place'];
-
-formNewPlace.addEventListener('submit', function(evt) {
-  const inputPlaceName = formNewPlace.elements['place-name'];
-  const inputPlaceLink = formNewPlace.elements.link;
-  evt.preventDefault();
-  const cardData = {
-    name: inputPlaceName.value,
-    link: inputPlaceLink.value
-  };
-  
-  createAndAddCard(cardData);
-
-  smoothClosingPopups(popupNewPlace);
-})
-
-// добавление новых карточек конфигурация popup
+// конфигурация popup "добавление новых карточек" 
 function formConfiguration() {
   
   const inputPlaceName = formNewPlace.elements['place-name'];
