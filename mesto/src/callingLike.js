@@ -1,4 +1,5 @@
 
+// функция лайка
 function callingLike(element) {
   const btnLike = element.querySelector(".card__like-button");
   if (btnLike.classList.contains('card__like-button_is-active')) {

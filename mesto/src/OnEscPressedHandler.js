@@ -1,5 +1,3 @@
-
-export {OnEscPressedHandler};
 import {smoothClosingPopups} from './smoothClosingPopups'
 
 //закрытие popup клавишей Escape 
@@ -18,3 +16,5 @@ function OnEscPressedHandler(evt) {
     document.removeEventListener("keydown", OnEscPressedHandler);
   }
 }
+
+export {OnEscPressedHandler};

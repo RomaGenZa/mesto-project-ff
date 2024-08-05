@@ -1,7 +1,4 @@
-import { initialCards } from '../scripts/cards';
-import { popupContent as pC } from './index';
 import {OnEscPressedHandler} from './OnEscPressedHandler';
-import {addCards} from './index';
 import {smoothClosingPopups} from './smoothClosingPopups';
 import{createAndAddCard} from './index';
 const popupNewPlace = document.querySelector(".popup_type_new-card");
@@ -16,28 +13,23 @@ function configureCardsEditPopup() {
   
   buttonNewPlace.addEventListener("click", function (evt) {
     evt.preventDefault();
-    // popupNewPlace.style.display = "flex";
     popupNewPlace.classList.add('popup_is-opened');
     formConfiguration();
     document.addEventListener("keydown", OnEscPressedHandler);
   });
 
   btnClosePopupNewPlace.addEventListener("click", function () {
-    // popupNewPlace.style.display = "none";
     smoothClosingPopups(popupNewPlace);
   });
 
   popupNewPlace.addEventListener('click', function(evt) {
     if (!popupCardContent.contains(evt.target)){
-      // popupNewPlace.style.display = "none";
       smoothClosingPopups(popupNewPlace);
     }
   });
 }
 
 // добавление карточек 
-const allCards = initialCards;
-
 const formNewPlace = document.forms['new-place'];
 
 formNewPlace.addEventListener('submit', function(evt) {
@@ -50,16 +42,8 @@ formNewPlace.addEventListener('submit', function(evt) {
   };
   
   createAndAddCard(cardData);
-  // allCards.unshift(
-  //   {
-  //     name: inputPlaceName.value,
-  //     link: inputPlaceLink.value
-  //   }
-  // );
-  console.log(allCards);
-  // addCards();
+
   smoothClosingPopups(popupNewPlace);
-  // document.querySelector(".popup_type_new-card").style.display = "none";
 })
 
 // добавление новых карточек конфигурация popup
@@ -72,5 +56,4 @@ function formConfiguration() {
   inputPlaceLink.value = '';
 } 
 
-export {allCards};
 export {configureCardsEditPopup};

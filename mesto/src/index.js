@@ -2,52 +2,33 @@
 import "../pages/index.css";
 
 // импорт popup настройки профиля
-import { configureProfileEditPopup } from "./configureProfileEditPopup";
+import { configureProfileEditPopup } from "./configureProfileEditPopup.js";
 configureProfileEditPopup();
 
 // импорт popup настройки карточек
-import { configureCardsEditPopup } from "./configureCardsEditPopup";
-// import {smoothOpeningPopup} from './smoothOpeningPopup';
+import { configureCardsEditPopup } from "./configureCardsEditPopup.js";
 configureCardsEditPopup();
 
 // импорт обработчика закрытия popup (профиль, доб. карт., карточка) по клавише «Escape»
 import { OnEscPressedHandler } from "./OnEscPressedHandler.js";
 
-// импорт нового массива с добавленными карточками
-import { allCards } from "./configureCardsEditPopup.js";
+import { initialCards } from '../scripts/cards';
 
-//
+// функция лайка
 import { callingLike } from "./callingLike.js";
 
 // импорт функции присвоения классов для плавного закрытия popup
-import { smoothClosingPopups } from "./smoothClosingPopups";
+import { smoothClosingPopups } from "./smoothClosingPopups.js";
 
-// экспорт <div class="popup__content"> для реализации закрытия popup кликом вне popup__content
-export const popupContent = document.querySelector(".popup__content");
-
-// экспорт функции выведения карточки на страницу
-export { addCards };
-
-export {createAndAddCard};
+// импорт функции добавления класса "popup_is-animated"
+import {addClassPopupOpen} from './addClassPopupOpen.js'
+addClassPopupOpen();
 
 // @todo: Темплейт карточки
 const template = document.querySelector("#card-template").content;
 
 // @todo: DOM узлы
 const cardsContainer = document.querySelector(".places__list");
-
-// функция добавления класса "popup_is-animated" для плавного открытия popup в дальнейшем
-function addClassPopupOpen() {
-  const popups = [
-    document.querySelector(".popup_type_edit"),
-    document.querySelector(".popup_type_new-card"),
-    document.querySelector(".popup_type_image"),
-  ];
-  popups.forEach(function (popup) {
-    popup.classList.add("popup_is-animated");
-  });
-}
-addClassPopupOpen();
 
 // @todo: Функция создания и закрытие карточки
 function createCard(cardData, deleteCardCallback, likeCardCallback) {
@@ -75,7 +56,6 @@ function createCard(cardData, deleteCardCallback, likeCardCallback) {
 
     const btnClose = popCard.querySelector(".popup__close");
     btnClose.addEventListener("click", function () {
-      // popCard.style.display = "none";
       smoothClosingPopups(popCard);
     });
 
@@ -86,14 +66,12 @@ function createCard(cardData, deleteCardCallback, likeCardCallback) {
     const contentTxt = popCard.querySelector(".popup__caption");
     contentTxt.textContent = cardData.name;
 
-    // popCard.style.display = "flex";
     popCard.classList.add("popup_is-opened");
     document.addEventListener("keydown", OnEscPressedHandler);
 
     const popupImg = document.querySelector(".popup__content_content_image");
     popCard.addEventListener("click", function (evt) {
       if (!popupImg.contains(evt.target)) {
-        // popCard.style.display = "none";
         smoothClosingPopups(popCard);
       }
     });
@@ -109,9 +87,7 @@ function deleteCard(cardElement) {
     name: cardElement.querySelector(".card__title").textContent,
     link: cardElement.querySelector(".card__image").src,
   };
-  console.log(element);
-  allCards.shift(element);
-  console.log(allCards);
+  initialCards.shift(element);
 }
 
 function createAndAddCard(cardData) {
@@ -127,7 +103,7 @@ function createAndAddCardEnd(cardData) {
 // @todo: Вывести карточки на страницу
 function addCards() {
   cardsContainer.innerHTML = "";
-  allCards.forEach(createAndAddCardEnd);
+  initialCards.forEach(createAndAddCardEnd);
 }
 addCards();
 
@@ -156,3 +132,12 @@ const pictures = [
   { name: "inactive", link: inactive },
   { name: "logo", link: logo },
 ];
+
+// экспорт <div class="popup__content"> для реализации закрытия popup кликом вне popup__content
+export const popupContent = document.querySelector(".popup__content");
+
+// экспорт функции выведения карточки на страницу
+export { addCards };
+
+// экспорт функции добавления и удаления карточки
+export {createAndAddCard};
