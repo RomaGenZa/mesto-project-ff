@@ -1,7 +1,5 @@
-import {onEscPressedHandler} from './onEscPressedHandler.js';
-import {smoothClosingPopups} from './smoothClosingPopups.js';
-import {formConfiguration} from './newPlaceFormConfiguration.js';
-import { popupContent as pC } from "./index";
+import {formConfiguration} from './card.js';
+import { popupContent as pC } from "./index.js";
 
 const popupProfile = document.querySelector(".popup_type_edit");
 
@@ -36,8 +34,7 @@ function configureCardsEditPopup() {
   });
 }
 
-
-// редактирование данных popup "профиля"
+// заполнениение данных popup "профиля"
 function fillProfileForm() {
   const formEditProfile = document.forms["edit-profile"];
 
@@ -80,5 +77,42 @@ function configureProfileEditPopup() {
   });
 }
 
+//закрытие popup клавишей Escape 
+function onEscPressedHandler(evt) {
+  if (evt.key === "Escape") {
+    const popups = [
+      document.querySelector('.popup_type_edit'),
+      document.querySelector('.popup_type_new-card'),
+      document.querySelector('.popup_type_image')
+    ];
+    
+    popups.forEach(function (popup) {
+      smoothClosingPopups(popup);
+    })
+    
+    document.removeEventListener("keydown", onEscPressedHandler);
+  }
+}
+
+// функция добавления класса "popup_is-animated" для плавного открытия popup в дальнейшем
+function addClassPopupOpen() {
+  const popups = [
+    document.querySelector(".popup_type_edit"),
+    document.querySelector(".popup_type_new-card"),
+    document.querySelector(".popup_type_image"),
+  ];
+  popups.forEach(function (popup) {
+    popup.classList.add("popup_is-animated");
+  });
+}
+
+function smoothClosingPopups(block) {
+  block.classList.add('popup_is-animated');
+  block.classList.remove('popup_is-opened');
+}
+
+export {smoothClosingPopups};
+export { addClassPopupOpen };
+export {onEscPressedHandler};
 export { configureProfileEditPopup };
 export {configureCardsEditPopup};

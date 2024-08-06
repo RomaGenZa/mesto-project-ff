@@ -8,10 +8,10 @@ import { configureProfileEditPopup } from "./modal.js";
 import { configureCardsEditPopup } from "./modal.js";
 
 // импорт функции добавления класса "popup_is-animated"
-import {addClassPopupOpen} from './addClassPopupOpen.js'
+import {addClassPopupOpen} from './modal.js'
 
 // добавление начальных карточек
-import {addCards} from './cardsActions.js'
+import {addCards} from './card.js'
 
 // функционал
 configureCardsEditPopup();
