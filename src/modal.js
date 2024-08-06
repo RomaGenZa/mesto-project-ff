@@ -1,4 +1,4 @@
-import {formConfiguration} from './card.js';
+import {resetNewPlaceForm} from './card.js';
 import { popupContent as pC } from "./index.js";
 
 const popupProfile = document.querySelector(".popup_type_edit");
@@ -19,7 +19,7 @@ function configureCardsEditPopup() {
   buttonNewPlace.addEventListener("click", function (evt) {
     evt.preventDefault();
     popupNewPlace.classList.add('popup_is-opened');
-    formConfiguration();
+    resetNewPlaceForm();
     document.addEventListener("keydown", onEscPressedHandler);
   });
 
@@ -80,22 +80,13 @@ function configureProfileEditPopup() {
 //закрытие popup клавишей Escape 
 function onEscPressedHandler(evt) {
   if (evt.key === "Escape") {
-    const popups = [
-      document.querySelector('.popup_type_edit'),
-      document.querySelector('.popup_type_new-card'),
-      document.querySelector('.popup_type_image')
-    ];
-    
-    popups.forEach(function (popup) {
-      smoothClosingPopups(popup);
-    })
-    
-    document.removeEventListener("keydown", onEscPressedHandler);
+    const popups = document.querySelector('.popup_is-opened');
+      smoothClosingPopups(popups);
   }
 }
 
 // функция добавления класса "popup_is-animated" для плавного открытия popup в дальнейшем
-function addClassPopupOpen() {
+function animatedClassPopupOpen() {
   const popups = [
     document.querySelector(".popup_type_edit"),
     document.querySelector(".popup_type_new-card"),
@@ -109,10 +100,11 @@ function addClassPopupOpen() {
 function smoothClosingPopups(block) {
   block.classList.add('popup_is-animated');
   block.classList.remove('popup_is-opened');
+  document.removeEventListener("keydown", onEscPressedHandler);
 }
 
 export {smoothClosingPopups};
-export { addClassPopupOpen };
+export { animatedClassPopupOpen };
 export {onEscPressedHandler};
 export { configureProfileEditPopup };
 export {configureCardsEditPopup};

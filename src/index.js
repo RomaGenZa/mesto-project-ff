@@ -8,7 +8,7 @@ import { configureProfileEditPopup } from "./modal.js";
 import { configureCardsEditPopup } from "./modal.js";
 
 // импорт функции добавления класса "popup_is-animated"
-import {addClassPopupOpen} from './modal.js'
+import {animatedClassPopupOpen} from './modal.js'
 
 // добавление начальных карточек
 import {addCards} from './card.js'
@@ -16,7 +16,7 @@ import {addCards} from './card.js'
 // функционал
 configureCardsEditPopup();
 configureProfileEditPopup();
-addClassPopupOpen();
+animatedClassPopupOpen();
 addCards();
 
 // экспорт <div class="popup__content"> для реализации закрытия popup кликом вне popup__content

@@ -103,7 +103,7 @@ formNewPlace.addEventListener('submit', function(evt) {
 })
 
 // конфигурация popup "добавление новых карточек" 
-function formConfiguration() {
+function resetNewPlaceForm() {
   
   const inputPlaceName = formNewPlace.elements['place-name'];
   inputPlaceName.value = '';
@@ -129,4 +129,4 @@ export { addCards };
 export {createAndAddCard};
 
 export {callingLike};
-export {formConfiguration};
+export {resetNewPlaceForm};
