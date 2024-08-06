@@ -1,7 +1,7 @@
 import {smoothClosingPopups} from './smoothClosingPopups'
 
 //закрытие popup клавишей Escape 
-function OnEscPressedHandler(evt) {
+function onEscPressedHandler(evt) {
   if (evt.key === "Escape") {
     const popups = [
       document.querySelector('.popup_type_edit'),
@@ -17,4 +17,4 @@ function OnEscPressedHandler(evt) {
   }
 }
 
-export {OnEscPressedHandler};
+export {onEscPressedHandler};

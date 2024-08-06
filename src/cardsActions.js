@@ -1,5 +1,5 @@
 // импорт обработчика закрытия popup (профиль, доб. карт., карточка) по клавише «Escape»
-import { OnEscPressedHandler } from "./OnEscPressedHandler.js";
+import { onEscPressedHandler } from "./onEscPressedHandler.js";
 
 import { initialCards } from '../scripts/cards';
 
@@ -52,7 +52,7 @@ function createCard(cardData, deleteCardCallback, likeCardCallback) {
     contentTxt.textContent = cardData.name;
 
     popCard.classList.add("popup_is-opened");
-    document.addEventListener("keydown", OnEscPressedHandler);
+    document.addEventListener("keydown", onEscPressedHandler);
 
     const popupImg = document.querySelector(".popup__content_content_image");
     popCard.addEventListener("click", function (evt) {

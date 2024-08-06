@@ -1,6 +1,7 @@
+import {onEscPressedHandler} from './onEscPressedHandler.js';
+import {smoothClosingPopups} from './smoothClosingPopups.js';
+import {formConfiguration} from './newPlaceFormConfiguration.js';
 import { popupContent as pC } from "./index";
-import {OnEscPressedHandler} from './OnEscPressedHandler';
-import {smoothClosingPopups} from './smoothClosingPopups';
 
 const popupProfile = document.querySelector(".popup_type_edit");
 
@@ -9,6 +10,32 @@ const EditingInformation = {
   name: "Жак-Ив Кусто",
   description: "Исследователь океана",
 };
+
+// настройка popup "добавления карточек"
+function configureCardsEditPopup() {
+  const buttonNewPlace = document.querySelector('.profile__add-button');
+  const popupNewPlace = document.querySelector(".popup_type_new-card");
+  const btnClosePopupNewPlace = popupNewPlace.querySelector(".popup__close");
+  const popupCardContent = popupNewPlace.querySelector('.popup__content');
+  
+  buttonNewPlace.addEventListener("click", function (evt) {
+    evt.preventDefault();
+    popupNewPlace.classList.add('popup_is-opened');
+    formConfiguration();
+    document.addEventListener("keydown", onEscPressedHandler);
+  });
+
+  btnClosePopupNewPlace.addEventListener("click", function () {
+    smoothClosingPopups(popupNewPlace);
+  });
+
+  popupNewPlace.addEventListener('click', function(evt) {
+    if (!popupCardContent.contains(evt.target)){
+      smoothClosingPopups(popupNewPlace);
+    }
+  });
+}
+
 
 // редактирование данных popup "профиля"
 function fillProfileForm() {
@@ -19,7 +46,6 @@ function fillProfileForm() {
   
   const inputDescription = formEditProfile.elements.description;
   inputDescription.value = EditingInformation.description;
-
 
   formEditProfile.addEventListener('submit', function(evt) {
     evt.preventDefault();
@@ -39,7 +65,7 @@ function configureProfileEditPopup() {
   buttonProfile.addEventListener("click", function(evt) {
     evt.preventDefault();
     popupProfile.classList.add('popup_is-opened');
-    document.addEventListener("keydown", OnEscPressedHandler);
+    document.addEventListener("keydown", onEscPressedHandler);
     fillProfileForm();
   })
   
@@ -55,3 +81,4 @@ function configureProfileEditPopup() {
 }
 
 export { configureProfileEditPopup };
+export {configureCardsEditPopup};

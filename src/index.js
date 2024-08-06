@@ -2,10 +2,10 @@
 import "../pages/index.css";
 
 // импорт popup настройки профиля
-import { configureProfileEditPopup } from "./configureProfileEditPopup.js";
+import { configureProfileEditPopup } from "./modal.js";
 
 // импорт popup настройки карточек
-import { configureCardsEditPopup } from "./configureCardsEditPopup.js";
+import { configureCardsEditPopup } from "./modal.js";
 
 // импорт функции добавления класса "popup_is-animated"
 import {addClassPopupOpen} from './addClassPopupOpen.js'
