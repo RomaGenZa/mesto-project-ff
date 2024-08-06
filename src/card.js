@@ -3,14 +3,6 @@ import { onEscPressedHandler } from "./modal.js";
 
 import { initialCards } from '../scripts/cards';
 
-// импорт функции присвоения классов для плавного закрытия popup
-import { closePopup } from "./modal.js";
-
-import { openCardPopap } from './index.js'
-
-const popupNewPlace = document.querySelector(".popup_type_new-card");
-const formNewPlace = document.forms['new-place'];
-
 // @todo: Темплейт карточки
 const template = document.querySelector("#card-template").content;
 
@@ -18,7 +10,7 @@ const template = document.querySelector("#card-template").content;
 const cardsContainer = document.querySelector(".places__list");
 
 // @todo: Функция создания и закрытие карточки
-function createCard(cardData, deleteCardCallback, likeCardCallback) {
+function createCard(cardData, deleteCardCallback, likeCardCallback, openCardPopapCallback) {
   const cloneTemplate = template.cloneNode(true);
   const cardImg = cloneTemplate.querySelector(".card__image");
   cardImg.src = cardData.link;
@@ -37,7 +29,7 @@ function createCard(cardData, deleteCardCallback, likeCardCallback) {
   });
 
   cardImg.addEventListener("click", function(evt) {
-    openCardPopap(cardData);
+    openCardPopapCallback(cardData);
   });
   return cloneTemplate;
 }
@@ -48,47 +40,24 @@ function deleteCard(cardElement) {
 }
 
 // создание и добавление в начало
-function createAndAddCard(cardData) {
-  const card = createCard(cardData, deleteCard, callingLike);
+function createAndAddCard(cardData, openCardPopapCallback) {
+  const card = createCard(cardData, deleteCard, callingLike, openCardPopapCallback);
   cardsContainer.prepend(card);
 }
 
 // создание и добавление в конец
-function createAndAddCardEnd(cardData) {
-  const card = createCard(cardData, deleteCard, callingLike);
+function createAndAddCardEnd(cardData, openCardPopapCallback) {
+  const card = createCard(cardData, deleteCard, callingLike, openCardPopapCallback);
   cardsContainer.append(card);
 }
 
 // @todo: Вывести карточки на страницу
-function addCards() {
+function addCards(openCardPopapCallback) {
   cardsContainer.innerHTML = "";
-  initialCards.forEach(createAndAddCardEnd);
+  initialCards.forEach(function (element) {
+    createAndAddCardEnd(element, openCardPopapCallback)
+  });
 }
-
-// добавление карточек 
-formNewPlace.addEventListener('submit', function(evt) {
-  const inputPlaceName = formNewPlace.elements['place-name'];
-  const inputPlaceLink = formNewPlace.elements.link;
-  evt.preventDefault();
-  const cardData = {
-    name: inputPlaceName.value,
-    link: inputPlaceLink.value
-  };
-  
-  createAndAddCard(cardData);
-
-  closePopup(popupNewPlace);
-})
-
-// конфигурация popup "добавление новых карточек" 
-function resetNewPlaceForm() {
-  
-  const inputPlaceName = formNewPlace.elements['place-name'];
-  inputPlaceName.value = '';
-
-  const inputPlaceLink = formNewPlace.elements.link;
-  inputPlaceLink.value = '';
-} 
 
 // функция лайка
 function callingLike(element) {
@@ -103,4 +72,3 @@ export { addCards };
 export {createAndAddCard};
 
 export {callingLike};
-export {resetNewPlaceForm};

@@ -7,7 +7,8 @@ import {
   configureCardsEditPopup,
   animatedClassPopupOpen,
   closePopup,
-  onEscPressedHandler 
+  onEscPressedHandler,
+  addFormNewPlaceSubmitHandler
 } from "./modal.js";
 
 // добавление начальных карточек
@@ -17,7 +18,8 @@ import {addCards} from './card.js'
 configureCardsEditPopup();
 configureProfileEditPopup();
 animatedClassPopupOpen();
-addCards();
+addCards(openCardPopap);
+addFormNewPlaceSubmitHandler(openCardPopap);
 
 function openCardPopap(cardData) {
   
