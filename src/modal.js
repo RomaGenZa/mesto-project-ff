@@ -24,12 +24,12 @@ function configureCardsEditPopup() {
   });
 
   btnClosePopupNewPlace.addEventListener("click", function () {
-    smoothClosingPopups(popupNewPlace);
+    closePopup(popupNewPlace);
   });
 
   popupNewPlace.addEventListener('click', function(evt) {
     if (!popupCardContent.contains(evt.target)){
-      smoothClosingPopups(popupNewPlace);
+      closePopup(popupNewPlace);
     }
   });
 }
@@ -48,7 +48,7 @@ function fillProfileForm() {
     evt.preventDefault();
     EditingInformation.name = inputName.value;
     EditingInformation.description = inputDescription.value;
-    smoothClosingPopups(popupProfile);
+    closePopup(popupProfile);
     document.querySelector('.profile__title').textContent = inputName.value;
     document.querySelector('.profile__description').textContent = inputDescription.value
   })
@@ -67,12 +67,12 @@ function configureProfileEditPopup() {
   })
   
   buttonClosePopup.addEventListener("click", function() {
-    smoothClosingPopups(popupProfile);
+    closePopup(popupProfile);
   })
   
   popupProfile.addEventListener("click", function (evt) {
     if (!pC.contains(evt.target)) {
-      smoothClosingPopups(popupProfile);
+      closePopup(popupProfile);
     }
   });
 }
@@ -81,7 +81,7 @@ function configureProfileEditPopup() {
 function onEscPressedHandler(evt) {
   if (evt.key === "Escape") {
     const popups = document.querySelector('.popup_is-opened');
-      smoothClosingPopups(popups);
+      closePopup(popups);
   }
 }
 
@@ -97,14 +97,16 @@ function animatedClassPopupOpen() {
   });
 }
 
-function smoothClosingPopups(block) {
+function closePopup(block) {
   block.classList.add('popup_is-animated');
   block.classList.remove('popup_is-opened');
   document.removeEventListener("keydown", onEscPressedHandler);
 }
 
-export {smoothClosingPopups};
-export { animatedClassPopupOpen };
-export {onEscPressedHandler};
-export { configureProfileEditPopup };
-export {configureCardsEditPopup};
+export {
+  closePopup,
+  animatedClassPopupOpen,
+  onEscPressedHandler,
+  configureProfileEditPopup,
+  configureCardsEditPopup
+};
