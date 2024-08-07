@@ -16,23 +16,18 @@ function configureCardsEditPopup() {
   const buttonNewPlace = document.querySelector(".profile__add-button");
   const popupNewPlace = document.querySelector(".popup_type_new-card");
   const btnClosePopupNewPlace = popupNewPlace.querySelector(".popup__close");
-  const popupCardContent = popupNewPlace.querySelector(".popup__content");
 
   buttonNewPlace.addEventListener("click", function (evt) {
     evt.preventDefault();
+    popupNewPlace.querySelector('.popup__form').reset();
     openPopup(popupNewPlace);
-    resetNewPlaceForm();
   });
 
   btnClosePopupNewPlace.addEventListener("click", function () {
     closePopup(popupNewPlace);
   });
 
-  popupNewPlace.addEventListener("click", function (evt) {
-    if (!popupCardContent.contains(evt.target)) {
-      closePopup(popupNewPlace);
-    }
-  });
+  popupNewPlace.addEventListener("click", closePopupByOverlay);
 }
 
 // заполнениение данных popup "профиля"
@@ -71,11 +66,7 @@ function configureProfileEditPopup() {
     closePopup(popupProfile);
   });
 
-  popupProfile.addEventListener("click", function (evt) {
-    if (!pC.contains(evt.target)) {
-      closePopup(popupProfile);
-    }
-  });
+  popupProfile.addEventListener("click", closePopupByOverlay);
 }
 
 //закрытие popup клавишей Escape
@@ -111,6 +102,12 @@ function openPopup(popup) {
   document.addEventListener("keydown", onEscPressedHandler);
 }
 
+const closePopupByOverlay = evt => {
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.currentTarget)   
+}
+}
+
 function addFormNewPlaceSubmitHandler(openCardPopapCallback) {
   formNewPlace.addEventListener("submit", function (evt) {
     const inputPlaceName = formNewPlace.elements["place-name"];
@@ -127,15 +124,6 @@ function addFormNewPlaceSubmitHandler(openCardPopapCallback) {
   });
 }
 
-// конфигурация popup "добавление новых карточек"
-function resetNewPlaceForm() {
-  const inputPlaceName = formNewPlace.elements["place-name"];
-  inputPlaceName.value = "";
-
-  const inputPlaceLink = formNewPlace.elements.link;
-  inputPlaceLink.value = "";
-}
-
 export {
   closePopup,
   animatedClassPopupOpen,
@@ -143,5 +131,6 @@ export {
   configureProfileEditPopup,
   configureCardsEditPopup,
   addFormNewPlaceSubmitHandler,
-  openPopup
+  openPopup,
+  closePopupByOverlay
 };

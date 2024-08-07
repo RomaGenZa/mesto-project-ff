@@ -8,7 +8,8 @@ import {
   animatedClassPopupOpen,
   closePopup,
   addFormNewPlaceSubmitHandler,
-  openPopup
+  openPopup,
+  closePopupByOverlay
 } from "./modal.js";
 
 // добавление начальных карточек
@@ -40,11 +41,7 @@ function openCardPopap(cardData) {
   openPopup(popCard);
 
   const popupImg = document.querySelector(".popup__content_content_image");
-  popCard.addEventListener("click", function (evt) {
-    if (!popupImg.contains(evt.target)) {
-      closePopup(popCard);
-    }
-  });
+  popCard.addEventListener("click", closePopupByOverlay);
 }
 
 // экспорт <div class="popup__content"> для реализации закрытия popup кликом вне popup__content
