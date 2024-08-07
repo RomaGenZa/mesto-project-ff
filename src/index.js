@@ -7,8 +7,8 @@ import {
   configureCardsEditPopup,
   animatedClassPopupOpen,
   closePopup,
-  onEscPressedHandler,
-  addFormNewPlaceSubmitHandler
+  addFormNewPlaceSubmitHandler,
+  openPopup
 } from "./modal.js";
 
 // добавление начальных карточек
@@ -37,8 +37,7 @@ function openCardPopap(cardData) {
   const contentTxt = popCard.querySelector(".popup__caption");
   contentTxt.textContent = cardData.name;
 
-  popCard.classList.add("popup_is-opened");
-  document.addEventListener("keydown", onEscPressedHandler);
+  openPopup(popCard);
 
   const popupImg = document.querySelector(".popup__content_content_image");
   popCard.addEventListener("click", function (evt) {

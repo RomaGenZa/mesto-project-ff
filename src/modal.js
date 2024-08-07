@@ -1,6 +1,5 @@
 import { createAndAddCard } from "./card.js";
 import { popupContent as pC } from "./index.js";
-// импорт функции присвоения классов для плавного закрытия popup
 
 const popupNewPlace = document.querySelector(".popup_type_new-card");
 const formNewPlace = document.forms["new-place"];
@@ -21,9 +20,8 @@ function configureCardsEditPopup() {
 
   buttonNewPlace.addEventListener("click", function (evt) {
     evt.preventDefault();
-    popupNewPlace.classList.add("popup_is-opened");
+    openPopup(popupNewPlace);
     resetNewPlaceForm();
-    document.addEventListener("keydown", onEscPressedHandler);
   });
 
   btnClosePopupNewPlace.addEventListener("click", function () {
@@ -65,8 +63,7 @@ function configureProfileEditPopup() {
 
   buttonProfile.addEventListener("click", function (evt) {
     evt.preventDefault();
-    popupProfile.classList.add("popup_is-opened");
-    document.addEventListener("keydown", onEscPressedHandler);
+    openPopup(popupProfile);
     fillProfileForm();
   });
 
@@ -101,10 +98,17 @@ function animatedClassPopupOpen() {
   });
 }
 
+// метод закрытия popup
 function closePopup(block) {
   block.classList.add("popup_is-animated");
   block.classList.remove("popup_is-opened");
   document.removeEventListener("keydown", onEscPressedHandler);
+}
+
+// метод открытия popup
+function openPopup(popup) {
+  popup.classList.add("popup_is-opened");
+  document.addEventListener("keydown", onEscPressedHandler);
 }
 
 function addFormNewPlaceSubmitHandler(openCardPopapCallback) {
@@ -139,4 +143,5 @@ export {
   configureProfileEditPopup,
   configureCardsEditPopup,
   addFormNewPlaceSubmitHandler,
+  openPopup
 };
