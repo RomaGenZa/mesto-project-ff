@@ -1,13 +1,7 @@
-// импорт обработчика закрытия popup (профиль, доб. карт., карточка) по клавише «Escape»
-import { onEscPressedHandler } from "./modal.js";
-
-import { initialCards } from '../scripts/cards';
+import { cardsContainer } from './index';
 
 // @todo: Темплейт карточки
 const template = document.querySelector("#card-template").content;
-
-// @todo: DOM узлы
-const cardsContainer = document.querySelector(".places__list");
 
 // @todo: Функция создания и закрытие карточки
 function createCard(cardData, deleteCardCallback, likeCardCallback, openCardPopapCallback) {
@@ -51,24 +45,14 @@ function createAndAddCardEnd(cardData, openCardPopapCallback) {
   cardsContainer.append(card);
 }
 
-// @todo: Вывести карточки на страницу
-function addCards(openCardPopapCallback) {
-  cardsContainer.innerHTML = "";
-  initialCards.forEach(function (element) {
-    createAndAddCardEnd(element, openCardPopapCallback)
-  });
-}
-
 // функция лайка
 function callingLike(element) {
   const btnLike = element.querySelector(".card__like-button");
   btnLike.classList.toggle('card__like-button_is-active');
 }
 
-// экспорт функции выведения карточки на страницу
-export { addCards };
+export { createAndAddCardEnd };
 
-// экспорт функции добавления и удаления карточки
-export {createAndAddCard};
+export { createAndAddCard };
 
-export {callingLike};
+export { callingLike };
