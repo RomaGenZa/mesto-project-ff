@@ -56,12 +56,15 @@ function configurePopupCardImage() {
 // заполнениение данных popup "профиля"
 function fillProfileForm() {
   const formEditProfile = document.forms["edit-profile"];
+  const evt = new Event('input');
 
   const inputName = formEditProfile.elements.name;
   inputName.value = editingInformation.name;
+  inputName.dispatchEvent(evt);
 
   const inputDescription = formEditProfile.elements.description;
   inputDescription.value = editingInformation.description;
+  inputDescription.dispatchEvent(evt);
 }
 
 //настройка popup редактирование "профиля"
