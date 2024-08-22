@@ -1,3 +1,6 @@
+import {watch} from './validation.js'
+watch();
+
 import "../pages/index.css";
 
 import { initialCards } from "../scripts/cards";
