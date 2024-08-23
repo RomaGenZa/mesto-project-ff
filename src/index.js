@@ -1,6 +1,8 @@
 import {watch} from './validation.js'
 watch();
 
+// import {deleteClassError} from './validation.js'
+
 import "../pages/index.css";
 
 import { initialCards } from "../scripts/cards";
@@ -8,6 +10,8 @@ import { initialCards } from "../scripts/cards";
 import { closePopupByOverlay, openPopup, closePopup } from "./modal.js";
 
 import { createAndAddCardEnd, createAndAddCard } from "./card.js";
+
+
 
 // @todo: DOM узлы
 const cardsContainer = document.querySelector(".places__list");
@@ -53,18 +57,21 @@ function configurePopupCardImage() {
   });
 }
 
+
 // заполнениение данных popup "профиля"
 function fillProfileForm() {
   const formEditProfile = document.forms["edit-profile"];
-  const evt = new Event('input');
+  // const evt = new Event('input');
 
   const inputName = formEditProfile.elements.name;
   inputName.value = editingInformation.name;
-  inputName.dispatchEvent(evt);
+  // inputName.dispatchEvent(evt);
+  // inputName.addEventListener("input", validateInput);
 
   const inputDescription = formEditProfile.elements.description;
   inputDescription.value = editingInformation.description;
-  inputDescription.dispatchEvent(evt);
+  // inputDescription.dispatchEvent(evt);
+  // inputDescription.addEventListener("input", validateInput);
 }
 
 //настройка popup редактирование "профиля"
@@ -113,6 +120,7 @@ function animatedClassPopupOpen() {
 
 function addFormNewPlaceSubmitHandler(openCardPopapCallback) {
   const formNewPlace = document.forms["new-place"];
+  
   formNewPlace.addEventListener("submit", function (evt) {
     const inputPlaceName = formNewPlace.elements["place-name"];
     const inputPlaceLink = formNewPlace.elements.link;
@@ -157,3 +165,4 @@ export { cardsContainer };
 export const popupContent = document.querySelector(".popup__content");
 
 export { openCardPopap };
+
