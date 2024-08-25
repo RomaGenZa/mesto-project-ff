@@ -1,9 +1,9 @@
 // функция активации валидации - enableValidation
 // функция очистки ошибок валидации - clearValidation
 
-export function watch() {
-  console.log(formProfile);
-}
+// export function watch() {
+//   console.log(formProfile);
+// }
 
 // function validateInput(evt) {
 //   const input = evt.currentTarget;
@@ -15,7 +15,7 @@ export function watch() {
 // }
 
 const formProfile = document.querySelector("#form__profile");
-const inputProfileName = formProfile.querySelector(".popup__input_type_name");
+export const inputProfileName = formProfile.querySelector(".popup__input_type_name");
 const inputProfileAboutMe = formProfile.querySelector(".popup__input_type_description");
 const errorString = formProfile.querySelector('.name__input-error');
 
@@ -31,11 +31,6 @@ function deleteClassError(elemnt) {
   // inputError.classList.add('transparent__input-error');
 }
 
-const btnClose = document.querySelector('.popup__close');
-btnClose.addEventListener('click', () => {
-  deleteClassError(inputProfileName);
-})
-
 function validateInput() {
   if (!inputProfileName.validity.valid) {
     addClassError(inputProfileName);
@@ -44,7 +39,6 @@ function validateInput() {
   }
 }
 
-
 // function validateInput(form, input) {
 //   if (!input.validity.valid) {
 //     addClassError(form, input, input.validationMessage);
@@ -52,7 +46,6 @@ function validateInput() {
 //     deleteClassError(form, input);
 //   }
 // }
-
 
 inputProfileName.addEventListener("input", validateInput);
 // inputProfileAboutMe.addEventListener("input", validateInput);

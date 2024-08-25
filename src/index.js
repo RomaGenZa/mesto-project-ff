@@ -1,7 +1,7 @@
-import {watch} from './validation.js'
-watch();
+// import {watch} from './validation.js'
+// watch();
 
-// import {deleteClassError} from './validation.js'
+import {deleteClassError} from './validation.js'
 
 import "../pages/index.css";
 
@@ -11,6 +11,7 @@ import { closePopupByOverlay, openPopup, closePopup } from "./modal.js";
 
 import { createAndAddCardEnd, createAndAddCard } from "./card.js";
 
+import { inputProfileName } from './validation.js';
 
 
 // @todo: DOM узлы
@@ -57,21 +58,15 @@ function configurePopupCardImage() {
   });
 }
 
-
 // заполнениение данных popup "профиля"
 function fillProfileForm() {
   const formEditProfile = document.forms["edit-profile"];
-  // const evt = new Event('input');
 
   const inputName = formEditProfile.elements.name;
   inputName.value = editingInformation.name;
-  // inputName.dispatchEvent(evt);
-  // inputName.addEventListener("input", validateInput);
 
   const inputDescription = formEditProfile.elements.description;
   inputDescription.value = editingInformation.description;
-  // inputDescription.dispatchEvent(evt);
-  // inputDescription.addEventListener("input", validateInput);
 }
 
 //настройка popup редактирование "профиля"
@@ -89,6 +84,7 @@ function configureProfileEditPopup() {
 
   buttonClosePopup.addEventListener("click", function () {
     closePopup(popupProfile);
+    deleteClassError(inputProfileName);
   });
 
   formEditProfile.addEventListener("submit", function (evt) {
