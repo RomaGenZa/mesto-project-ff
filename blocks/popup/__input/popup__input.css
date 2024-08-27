@@ -22,7 +22,7 @@
   color: transparent;
 }
 
-.popup__form__input-error {
+.popup__error_visible {
   color: rgba(255, 0, 0);
   font-size: 12px;
   font-weight: 400;

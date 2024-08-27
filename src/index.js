@@ -1,7 +1,7 @@
 // import {watch} from './validation.js'
 // watch();
 
-import {deleteClassError} from './validation.js'
+import {enableValidation, validationConfig} from './validation.js'
 
 import "../pages/index.css";
 
@@ -10,6 +10,8 @@ import { initialCards } from "../scripts/cards";
 import { closePopupByOverlay, openPopup, closePopup } from "./modal.js";
 
 import { createAndAddCardEnd, createAndAddCard } from "./card.js";
+
+
 
 // import { inputProfileName } from './validation.js';
 // const formProfile = document.querySelector(".popup__form");
@@ -24,6 +26,7 @@ const editingInformation = {
   description: "Исследователь океана",
 };
 
+
 // функционал
 configureCardsEditPopup();
 configureProfileEditPopup();
@@ -31,6 +34,8 @@ animatedClassPopupOpen();
 addCards(openCardPopap);
 addFormNewPlaceSubmitHandler(openCardPopap);
 configurePopupCardImage();
+
+enableValidation(validationConfig);
 
 // настройка popup "добавления карточек"
 function configureCardsEditPopup() {

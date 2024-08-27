@@ -1,5 +1,5 @@
 // import { inputProfileName } from './validation.js';
-import { deleteClassError } from "./validation.js";
+import {clearValidation, validationConfig} from './validation.js'
 
 
 //закрытие popup клавишей Escape
@@ -17,10 +17,7 @@ function closePopup(popup) {
   document.removeEventListener("keydown", onEscPressedHandler);
   const form = popup.querySelector(".popup__form");
   if (form !== null) {
-    const inputs = Array.from(form.querySelectorAll(".popup__input"));
-    inputs.forEach((input) => {
-      deleteClassError(form, input);
-    });
+    clearValidation(form, validationConfig)
   }
 }
 
