@@ -42,8 +42,9 @@
         <div class="popup__content">
           <button type="button" class="popup__close"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
-          <form class="popup__form" id="form__profile" name="edit-profile" novalidate>
+          <form class="popup__form" id="form__profile" name="edit-profile" novalidate autocomplete="off">
             <input
+              id="name__input"
               type="text"
               name="name"
               class="popup__input popup__input_type_name"
@@ -51,9 +52,12 @@
               required
               minlength="2"
               maxlength="40"
+              pattern="^[a-zA-Zа-яА-ЯЁё\-\s]+$"
+              
             />
-            <span class="name__input-error">Вы пропустили это поле.</span>
+            <span class="line__error name__input-error">Вы пропустили это поле.</span>
             <input
+              id="description__input"
               type="text"
               name="description"
               class="popup__input popup__input_type_description"
@@ -61,8 +65,9 @@
               required
               minlength="2"
               maxlength="200"
+              pattern="^[a-zA-Zа-яА-ЯЁё\-\s]+$"
             />
-            <span class="name__input-error">Введите адрес сайта.</span>
+            <span class="line__error description__input-error" >Вы пропустили это поле.</span>
             <button type="submit" class="button popup__button">
               Сохранить
             </button>
@@ -73,21 +78,28 @@
         <div class="popup__content">
           <button type="button" class="popup__close"></button>
           <h3 class="popup__title">Новое место</h3>
-          <form class="popup__form" id="form__place" name="new-place" novalidate>
+          <form class="popup__form" id="form__place" name="new-place" novalidate autocomplete="off">
             <input
+              id="place__input"
               type="text"
               name="place-name"
               class="popup__input popup__input_type_card-name"
               placeholder="Название"
               required
+              minlength="2"
+              maxlength="30"
+              pattern="^[a-zA-Zа-яА-ЯЁё\-\s]+$"
             />
+            <span class="line__error place__input-error">Вы пропустили это поле.</span>
             <input
+              id="url__input"
               type="url"
               name="link"
               class="popup__input popup__input_type_url"
               placeholder="Ссылка на картинку"
               required
             />
+            <span class="line__error url__input-error">Введите адрес сайта.</span>
             <button type="submit" class="button popup__button">
               Сохранить
             </button>

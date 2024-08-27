@@ -1,5 +1,5 @@
-import { inputProfileName } from './validation.js';
-import {deleteClassError} from './validation.js'
+// import { inputProfileName } from './validation.js';
+import { deleteClassError } from "./validation.js";
 
 
 //закрытие popup клавишей Escape
@@ -8,7 +8,6 @@ function onEscPressedHandler(evt) {
     const popup = document.querySelector(".popup_is-opened");
     closePopup(popup);
   }
-  deleteClassError(inputProfileName);
 }
 
 // метод закрытия popup
@@ -16,7 +15,13 @@ function closePopup(popup) {
   popup.classList.add("popup_is-animated");
   popup.classList.remove("popup_is-opened");
   document.removeEventListener("keydown", onEscPressedHandler);
-  deleteClassError(inputProfileName);
+  const form = popup.querySelector(".popup__form");
+  if (form !== null) {
+    const inputs = Array.from(form.querySelectorAll(".popup__input"));
+    inputs.forEach((input) => {
+      deleteClassError(form, input);
+    });
+  }
 }
 
 // метод открытия popup
@@ -29,12 +34,6 @@ const closePopupByOverlay = (evt) => {
   if (evt.target === evt.currentTarget) {
     closePopup(evt.currentTarget);
   }
-  
 };
 
-export {
-  closePopup,
-  onEscPressedHandler,
-  openPopup,
-  closePopupByOverlay
-};
+export { closePopup, onEscPressedHandler, openPopup, closePopupByOverlay };

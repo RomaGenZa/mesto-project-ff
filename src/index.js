@@ -11,8 +11,9 @@ import { closePopupByOverlay, openPopup, closePopup } from "./modal.js";
 
 import { createAndAddCardEnd, createAndAddCard } from "./card.js";
 
-import { inputProfileName } from './validation.js';
-
+// import { inputProfileName } from './validation.js';
+// const formProfile = document.querySelector(".popup__form");
+// const inputProfileName = formProfile.querySelector('.popup__input');
 
 // @todo: DOM узлы
 const cardsContainer = document.querySelector(".places__list");
@@ -84,7 +85,6 @@ function configureProfileEditPopup() {
 
   buttonClosePopup.addEventListener("click", function () {
     closePopup(popupProfile);
-    deleteClassError(inputProfileName);
   });
 
   formEditProfile.addEventListener("submit", function (evt) {
