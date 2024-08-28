@@ -1,6 +1,4 @@
-// import { inputProfileName } from './validation.js';
 import {clearValidation, validationConfig} from './validation.js'
-
 
 //закрытие popup клавишей Escape
 function onEscPressedHandler(evt) {

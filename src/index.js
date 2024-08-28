@@ -1,6 +1,3 @@
-// import {watch} from './validation.js'
-// watch();
-
 import {enableValidation, validationConfig} from './validation.js'
 
 import "../pages/index.css";
@@ -11,12 +8,6 @@ import { closePopupByOverlay, openPopup, closePopup } from "./modal.js";
 
 import { createAndAddCardEnd, createAndAddCard } from "./card.js";
 
-
-
-// import { inputProfileName } from './validation.js';
-// const formProfile = document.querySelector(".popup__form");
-// const inputProfileName = formProfile.querySelector('.popup__input');
-
 // @todo: DOM узлы
 const cardsContainer = document.querySelector(".places__list");
 
@@ -25,7 +16,6 @@ const editingInformation = {
   name: "Жак-Ив Кусто",
   description: "Исследователь океана",
 };
-
 
 // функционал
 configureCardsEditPopup();
