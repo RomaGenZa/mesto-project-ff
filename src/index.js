@@ -1,3 +1,6 @@
+import { PATH } from './api.js'
+console.log(PATH);
+
 import {enableValidation, validationConfig} from './validation.js'
 
 import "../pages/index.css";
@@ -13,8 +16,8 @@ const cardsContainer = document.querySelector(".places__list");
 
 // Объект с информацией профиля
 const editingInformation = {
-  name: "Жак-Ив Кусто",
-  description: "Исследователь океана",
+  name: "Оскар",
+  description: "Чистильщик в китомойке",
 };
 
 // функционал
