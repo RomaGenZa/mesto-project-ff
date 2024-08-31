@@ -1,46 +1,61 @@
-import { data } from "autoprefixer";
+// import { data } from "autoprefixer";
 
-export const PATH = "https://mesto.nomoreparties.co/v1/wff-cohort-21";
+export const link = "https://nomoreparties.co/v1/wff-cohort-21/";
 
-function getAllCards() {
-  fetch(`${PATH}/cards`, {
+const token = {
+  authorization: "ea2f954f-c019-4b51-8f37-b84bd838696f",
+}
+
+const handleResonse = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+};
+
+
+export function getAllCards() {
+  return fetch(`${link}cards`, {
     headers: {
       authorization: "ea2f954f-c019-4b51-8f37-b84bd838696f",
     },
     method: "GET",
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-    .then((data) => {
-      console.log(data);
-    });
+  }).then(handleResonse);
 }
 
-getAllCards();
 
-function createCard() {
-  fetch(`${PATH}/cards`, {
+export function createCard(data) {
+  return fetch(`${link}cards`, {
     headers: {
       authorization: "ea2f954f-c019-4b51-8f37-b84bd838696f",
       "Content-Type": "application/json",
     },
     method: "POST",
-    body: JSON.stringify({
-      name: "Циндао",
-      link: "https://cameralabs.org/media/camera/july/22july/48_366d7b4946bfce955b67b9e638a7b6ec.jpg",
-    }),
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-    .then((data) => {
-      console.log(data);
-    });
+    body: JSON.stringify(data),
+  }).then(handleResonse);
 }
 
-createCard();
+
+export function loadProfilInformation() {
+  return fetch(`${link}users/me`, {
+    headers: {
+      authorization: "ea2f954f-c019-4b51-8f37-b84bd838696f",
+    },
+    method: "GET",
+  })
+    .then(handleResonse)
+}
+
+
+
+export function editProfile(data) {
+  return fetch(`${link}users/me`, {
+    method: "PATCH",
+    headers: {
+      authorization: "ea2f954f-c019-4b51-8f37-b84bd838696f",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then(handleResonse)
+}
+

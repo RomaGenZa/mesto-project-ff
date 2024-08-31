@@ -1,11 +1,13 @@
-import { PATH } from './api.js'
-console.log(PATH);
+import {
+  getAllCards,
+  createCard,
+  loadProfilInformation,
+  editProfile,
+} from "./api.js";
 
-import {enableValidation, validationConfig} from './validation.js'
+import { enableValidation, validationConfig } from "./validation.js";
 
 import "../pages/index.css";
-
-import { initialCards } from "../scripts/cards";
 
 import { closePopupByOverlay, openPopup, closePopup } from "./modal.js";
 
@@ -14,13 +16,8 @@ import { createAndAddCardEnd, createAndAddCard } from "./card.js";
 // @todo: DOM узлы
 const cardsContainer = document.querySelector(".places__list");
 
-// Объект с информацией профиля
-const editingInformation = {
-  name: "Оскар",
-  description: "Чистильщик в китомойке",
-};
-
 // функционал
+setupProfileInformation();
 configureCardsEditPopup();
 configureProfileEditPopup();
 animatedClassPopupOpen();
@@ -29,6 +26,16 @@ addFormNewPlaceSubmitHandler(openCardPopap);
 configurePopupCardImage();
 
 enableValidation(validationConfig);
+
+function setupProfileInformation() {
+  loadProfilInformation().then((profileData) => {
+    document.querySelector(".profile__title").textContent = profileData.name;
+    document.querySelector(".profile__description").textContent =
+      profileData.about;
+    document.querySelector(".profile__image").style =
+      "background-image: url('" + profileData.avatar + "')";
+  });
+}
 
 // настройка popup "добавления карточек"
 function configureCardsEditPopup() {
@@ -60,12 +67,13 @@ function configurePopupCardImage() {
 // заполнениение данных popup "профиля"
 function fillProfileForm() {
   const formEditProfile = document.forms["edit-profile"];
+  loadProfilInformation().then((profileData) => {
+    const inputName = formEditProfile.elements.name;
+    inputName.value = profileData.name;
 
-  const inputName = formEditProfile.elements.name;
-  inputName.value = editingInformation.name;
-
-  const inputDescription = formEditProfile.elements.description;
-  inputDescription.value = editingInformation.description;
+    const inputDescription = formEditProfile.elements.description;
+    inputDescription.value = profileData.about;
+  });
 }
 
 //настройка popup редактирование "профиля"
@@ -89,12 +97,14 @@ function configureProfileEditPopup() {
     evt.preventDefault();
     const inputName = formEditProfile.elements.name;
     const inputDescription = formEditProfile.elements.description;
-    editingInformation.name = inputName.value;
-    editingInformation.description = inputDescription.value;
-    closePopup(popupProfile);
-    document.querySelector(".profile__title").textContent = inputName.value;
-    document.querySelector(".profile__description").textContent =
-      inputDescription.value;
+    editProfile({
+      name: inputName.value,
+      about: inputDescription.value,
+    }).then((profile) => {
+      document.querySelector(".profile__title").textContent = profile.name;
+      document.querySelector(".profile__description").textContent = profile.about;
+      closePopup(popupProfile);
+    });
   });
 
   popupProfile.addEventListener("click", closePopupByOverlay);
@@ -114,7 +124,7 @@ function animatedClassPopupOpen() {
 
 function addFormNewPlaceSubmitHandler(openCardPopapCallback) {
   const formNewPlace = document.forms["new-place"];
-  
+
   formNewPlace.addEventListener("submit", function (evt) {
     const inputPlaceName = formNewPlace.elements["place-name"];
     const inputPlaceLink = formNewPlace.elements.link;
@@ -126,9 +136,10 @@ function addFormNewPlaceSubmitHandler(openCardPopapCallback) {
       link: inputPlaceLink.value,
     };
 
-    createAndAddCard(cardData, openCardPopapCallback);
-
-    closePopup(popupNewPlace);
+    createCard(cardData).then((data) => {
+      createAndAddCard(data, openCardPopapCallback);
+      closePopup(popupNewPlace);
+    });
   });
 }
 
@@ -147,9 +158,11 @@ function openCardPopap(cardData) {
 
 // @todo: Вывести карточки на страницу
 function addCards(openCardPopapCallback) {
-  cardsContainer.innerHTML = "";
-  initialCards.forEach(function (element) {
-    createAndAddCardEnd(element, openCardPopapCallback);
+  getAllCards().then((data) => {
+    cardsContainer.innerHTML = "";
+    data.forEach(function (element) {
+      createAndAddCardEnd(element, openCardPopapCallback);
+    });
   });
 }
 
@@ -159,4 +172,3 @@ export { cardsContainer };
 export const popupContent = document.querySelector(".popup__content");
 
 export { openCardPopap };
-
