@@ -102,7 +102,8 @@ function configureProfileEditPopup() {
       about: inputDescription.value,
     }).then((profile) => {
       document.querySelector(".profile__title").textContent = profile.name;
-      document.querySelector(".profile__description").textContent = profile.about;
+      document.querySelector(".profile__description").textContent =
+        profile.about;
       closePopup(popupProfile);
     });
   });
@@ -137,8 +138,11 @@ function addFormNewPlaceSubmitHandler(openCardPopapCallback) {
     };
 
     createCard(cardData).then((data) => {
-      createAndAddCard(data, openCardPopapCallback);
-      closePopup(popupNewPlace);
+      loadProfilInformation().then((profile) => {
+        data.owner = profile._id === data.owner._id;
+        createAndAddCard(data, openCardPopapCallback);
+        closePopup(popupNewPlace);
+      });
     });
   });
 }
@@ -158,9 +162,13 @@ function openCardPopap(cardData) {
 
 // @todo: Вывести карточки на страницу
 function addCards(openCardPopapCallback) {
-  getAllCards().then((data) => {
+  Promise.all([getAllCards(), loadProfilInformation()]).then((data) => {
+    const cardsData = data[0];
+    const profileData = data[1];
+
     cardsContainer.innerHTML = "";
-    data.forEach(function (element) {
+    cardsData.forEach(function (element) {
+      element.owner = element.owner._id === profileData._id;
       createAndAddCardEnd(element, openCardPopapCallback);
     });
   });

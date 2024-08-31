@@ -59,3 +59,37 @@ export function editProfile(data) {
     .then(handleResonse)
 }
 
+
+export function deletePost(id) {
+  return fetch(`${link}cards/` + id, {
+    method: "DELETE",
+    headers: {
+      authorization: "ea2f954f-c019-4b51-8f37-b84bd838696f",
+      "Content-Type": "application/json",
+    }
+  })
+    .then(handleResonse)
+}
+
+export function likeCard(id) {
+  return fetch(`${link}cards/likes/` + id, {
+    method: "PUT",
+    headers: {
+      authorization: "ea2f954f-c019-4b51-8f37-b84bd838696f",
+      "Content-Type": "application/json",
+    }
+  })
+    .then(handleResonse)
+}
+
+
+export function disLikeCard(id) {
+  return fetch(`${link}cards/likes/` + id, {
+    method: "DELETE",
+    headers: {
+      authorization: "ea2f954f-c019-4b51-8f37-b84bd838696f",
+      "Content-Type": "application/json",
+    }
+  })
+    .then(handleResonse)
+}
