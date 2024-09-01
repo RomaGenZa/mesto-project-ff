@@ -1,3 +1,3 @@
 # Проектная работа Mesto
 
-https://github.com/RomaGenZa/mesto-project-ff.git
+[Ссылка на рабочий проект](https://romagenza.github.io/mesto-project-ff/)
