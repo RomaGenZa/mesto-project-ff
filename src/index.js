@@ -3,6 +3,7 @@ import {
   createCard,
   loadProfilInformation,
   editProfile,
+  updateAvatar,
 } from "./api.js";
 
 import { enableValidation, validationConfig } from "./validation.js";
@@ -24,6 +25,7 @@ animatedClassPopupOpen();
 addCards(openCardPopap);
 addFormNewPlaceSubmitHandler(openCardPopap);
 configurePopupCardImage();
+configureAvatarEditPopup();
 
 enableValidation(validationConfig);
 
@@ -97,10 +99,13 @@ function configureProfileEditPopup() {
     evt.preventDefault();
     const inputName = formEditProfile.elements.name;
     const inputDescription = formEditProfile.elements.description;
+    const btnSavePopup = formEditProfile.querySelector('.popup__button')
+    btnSavePopup.innerHTML = 'Сохранение...'
     editProfile({
       name: inputName.value,
       about: inputDescription.value,
     }).then((profile) => {
+      btnSavePopup.innerHTML = 'Сохранить'
       document.querySelector(".profile__title").textContent = profile.name;
       document.querySelector(".profile__description").textContent =
         profile.about;
@@ -109,6 +114,42 @@ function configureProfileEditPopup() {
   });
 
   popupProfile.addEventListener("click", closePopupByOverlay);
+}
+
+function configureAvatarEditPopup() {
+  const openEditAvatar = document.querySelector(".profile__image");
+  const popupAvatarEdit = document.querySelector(".popup_type_edit_avatar");
+  const btnClosePopup = popupAvatarEdit.querySelector(".popup__close");
+
+  openEditAvatar.addEventListener("click", function (evt) {
+    popupAvatarEdit.querySelector(".popup__form").reset();
+    openPopup(popupAvatarEdit);
+  });
+
+  popupAvatarEdit.addEventListener("submit", function (evt) {
+    const inputPlaceLink = popupAvatarEdit.querySelector("#url__input");
+    const btnSave = popupAvatarEdit.querySelector('.popup__button');
+    btnSave.innerHTML = 'Сохранение...';
+    evt.preventDefault();
+    const avatarData = {
+      avatar: inputPlaceLink.value,
+    };
+
+    updateAvatar(avatarData).then((data) => {
+      btnSave.innerHTML = 'Сохранить';
+      if (data !== null) {
+        document.querySelector(".profile__image").style =
+          "background-image: url('" + data.avatar + "')";
+        closePopup(popupAvatarEdit);
+      }
+    });
+  });
+
+  btnClosePopup.addEventListener("click", function () {
+    closePopup(popupAvatarEdit);
+  });
+
+  popupAvatarEdit.addEventListener("click", closePopupByOverlay);
 }
 
 // функция добавления класса "popup_is-animated" для плавного открытия popup в дальнейшем
@@ -127,23 +168,27 @@ function addFormNewPlaceSubmitHandler(openCardPopapCallback) {
   const formNewPlace = document.forms["new-place"];
 
   formNewPlace.addEventListener("submit", function (evt) {
+    evt.preventDefault();
+
     const inputPlaceName = formNewPlace.elements["place-name"];
     const inputPlaceLink = formNewPlace.elements.link;
     const popupNewPlace = document.querySelector(".popup_type_new-card");
-
-    evt.preventDefault();
+    const btnSave =  formNewPlace.querySelector('.popup__button');
+    btnSave.innerHTML = 'Сохранение...'
     const cardData = {
       name: inputPlaceName.value,
       link: inputPlaceLink.value,
     };
 
-    createCard(cardData).then((data) => {
-      loadProfilInformation().then((profile) => {
-        data.owner = profile._id === data.owner._id;
-        createAndAddCard(data, openCardPopapCallback);
+    Promise.all([createCard(cardData), loadProfilInformation()]).then(
+      (data) => {
+        const cardData = data[0];
+        const profileData = data[1];
+        createAndAddCard(cardData, profileData, openCardPopapCallback);
         closePopup(popupNewPlace);
-      });
-    });
+        btnSave.innerHTML = 'Сохранить'
+      }
+    );
   });
 }
 
@@ -168,8 +213,7 @@ function addCards(openCardPopapCallback) {
 
     cardsContainer.innerHTML = "";
     cardsData.forEach(function (element) {
-      element.owner = element.owner._id === profileData._id;
-      createAndAddCardEnd(element, openCardPopapCallback);
+      createAndAddCardEnd(element, profileData, openCardPopapCallback);
     });
   });
 }

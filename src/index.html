@@ -20,10 +20,14 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <div
-            class="profile__image"
-            style="background-image: url('')"
-          ></div>
+          <div class="profile__image" style="background-image: url('')">
+            <div class="avatar_mask">
+              <img
+                class="pencil"
+                src="../images/Vector.svg"
+              />
+            </div>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title"></h1>
             <button class="profile__edit-button" type="button"></button>
@@ -38,11 +42,49 @@
       <footer class="footer page__section">
         <p class="footer__copyright">© 2024 Mesto underwater</p>
       </footer>
+      <div class="popup popup_type_edit_avatar">
+        <div class="popup__content">
+          <button type="button" class="popup__close"></button>
+          <h3 class="popup__title">Обновить аватар</h3>
+          <form
+            class="popup__form"
+            id="form__avatar"
+            name="edit_avatar"
+            novalidate
+            autocomplete="off"
+          >
+            <input
+              id="url__input"
+              type="url"
+              name="link"
+              class="popup__input popup__input_type_url"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span class="line__error url__input-error"
+              >Введите адрес сайта.</span
+            >
+            <button
+              type="submit"
+              class="button popup__button popup__button_disabled"
+              disabled
+            >
+              Сохранить
+            </button>
+          </form>
+        </div>
+      </div>
       <div class="popup popup_type_edit">
         <div class="popup__content">
           <button type="button" class="popup__close"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
-          <form class="popup__form" id="form__profile" name="edit-profile" novalidate autocomplete="off">
+          <form
+            class="popup__form"
+            id="form__profile"
+            name="edit-profile"
+            novalidate
+            autocomplete="off"
+          >
             <input
               id="name__input"
               type="text"
@@ -55,7 +97,9 @@
               pattern="^[a-zA-Zа-яА-ЯЁё\-\s]+$"
               data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
             />
-            <span class="line__error name__input-error">Вы пропустили это поле.</span>
+            <span class="line__error name__input-error"
+              >Вы пропустили это поле.</span
+            >
             <input
               id="description__input"
               type="text"
@@ -68,8 +112,14 @@
               pattern="^[a-zA-Zа-яА-ЯЁё\-\s]+$"
               data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
             />
-            <span class="line__error description__input-error" >Вы пропустили это поле.</span>
-            <button type="submit" class="button popup__button  popup__button_disabled" disabled>
+            <span class="line__error description__input-error"
+              >Вы пропустили это поле.</span
+            >
+            <button
+              type="submit"
+              class="button popup__button popup__button_disabled"
+              disabled
+            >
               Сохранить
             </button>
           </form>
@@ -79,7 +129,13 @@
         <div class="popup__content">
           <button type="button" class="popup__close"></button>
           <h3 class="popup__title">Новое место</h3>
-          <form class="popup__form" id="form__place" name="new-place" novalidate autocomplete="off">
+          <form
+            class="popup__form"
+            id="form__place"
+            name="new-place"
+            novalidate
+            autocomplete="off"
+          >
             <input
               id="place__input"
               type="text"
@@ -92,7 +148,9 @@
               pattern="^[a-zA-Zа-яА-ЯЁё\-\s]+$"
               data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
             />
-            <span class="line__error place__input-error">Вы пропустили это поле.</span>
+            <span class="line__error place__input-error"
+              >Вы пропустили это поле.</span
+            >
             <input
               id="url__input"
               type="url"
@@ -101,8 +159,14 @@
               placeholder="Ссылка на картинку"
               required
             />
-            <span class="line__error url__input-error">Введите адрес сайта.</span>
-            <button type="submit" class="button popup__button popup__button_disabled" disabled>
+            <span class="line__error url__input-error"
+              >Введите адрес сайта.</span
+            >
+            <button
+              type="submit"
+              class="button popup__button popup__button_disabled"
+              disabled
+            >
               Сохранить
             </button>
           </form>
