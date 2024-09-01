@@ -1,4 +1,4 @@
-import { Vector_img } from '../images/Vector.svg'
+import { pencil_img } from '../images/pencil.svg'
 import { logo_img } from '../images/logo.svg'
 
 
