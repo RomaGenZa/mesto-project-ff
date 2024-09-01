@@ -1,3 +1,7 @@
+import { Vector_img } from '../images/Vector.svg'
+import { logo_img } from '../images/logo.svg'
+
+
 import {
   getAllCards,
   createCard,
