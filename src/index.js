@@ -15,7 +15,6 @@ import { enableValidation, clearValidation } from "./validation.js";
 import "../pages/index.css";
 
 import { openPopup, closePopup } from "./modal.js";
-import { config } from "webpack";
 
 let userProfile = null;
 
@@ -150,7 +149,7 @@ formNewPlace.addEventListener("submit", (evt) => {
 
   createCardApi(cardData)
     .then((cardData) => {
-      createAndAddCard(cardData, userProfile._id, openCardPopapCallback);
+      createAndAddCard(cardData, userProfile._id, openCardPopap);
       closePopup(popupNewPlace);
     })
     .catch((err) => console.log(err))
