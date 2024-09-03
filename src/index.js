@@ -10,22 +10,14 @@ import {
   updateAvatar,
 } from "./api.js";
 
-import { enableValidation, validationConfig } from "./validation.js";
+import { enableValidation, validationConfig, clearValidation } from "./validation.js";
 
 import "../pages/index.css";
 
-import { closePopupByOverlay, openPopup, closePopup } from "./modal.js";
+import { openPopup, closePopup } from "./modal.js";
 
-// функционал
-loadProfilInformation()
-  .then((profileData) => {
-    document.querySelector(".profile__title").textContent = profileData.name;
-    document.querySelector(".profile__description").textContent =
-      profileData.about;
-    document.querySelector(".profile__image").style =
-      "background-image: url('" + profileData.avatar + "')";
-  })
-  .catch((err) => console.log(err));
+let userProfile = null;
+
 
 // настройка popup "добавления карточек"
 const buttonNewPlace = document.querySelector(".profile__add-button");
@@ -38,10 +30,18 @@ buttonNewPlace.addEventListener("click", function (evt) {
 });
 
 btnClosePopupNewPlace.addEventListener("click", function () {
+  const form = document.querySelector('#form__place')
+  clearValidation(form, validationConfig)
   closePopup(popupNewPlace);
 });
 
-popupNewPlace.addEventListener("click", closePopupByOverlay);
+popupNewPlace.addEventListener("click", (evt) => {
+  if (evt.target === evt.currentTarget) {
+    const form = document.querySelector('#form__place');
+    clearValidation(form, validationConfig)
+    closePopup(popupNewPlace);
+  }
+});
 
 configureProfileEditPopup();
 animatedClassPopupOpen();
@@ -55,7 +55,12 @@ enableValidation(validationConfig);
 function configurePopupCardImage() {
   const popCard = document.querySelector(".popup_type_image");
   const btnClose = popCard.querySelector(".popup__close");
-  popCard.addEventListener("click", closePopupByOverlay);
+  popCard.addEventListener("click", (evt) => {
+    if (evt.target === evt.currentTarget) {
+      closePopup(popCard);
+    }
+  });
+
   btnClose.addEventListener("click", function () {
     closePopup(popCard);
   });
@@ -110,6 +115,8 @@ function configureProfileEditPopup() {
   });
 
   buttonClosePopup.addEventListener("click", function () {
+    const form = document.querySelector('#form__profile')
+    clearValidation(form, validationConfig)
     closePopup(popupProfile);
   });
 
@@ -135,7 +142,13 @@ function configureProfileEditPopup() {
       })
   });
 
-  popupProfile.addEventListener("click", closePopupByOverlay);
+  popupProfile.addEventListener("click", (evt) => {
+  if (evt.target === evt.currentTarget) {
+    const form = document.querySelector('#form__profile');
+    clearValidation(form, validationConfig)
+    closePopup(popupProfile);
+  }
+});
 }
 
 function configureAvatarEditPopup() {
@@ -172,10 +185,18 @@ function configureAvatarEditPopup() {
   });
 
   btnClosePopup.addEventListener("click", function () {
+    const form = document.querySelector('#form__avatar')
+    clearValidation(form, validationConfig)
     closePopup(popupAvatarEdit);
   });
 
-  popupAvatarEdit.addEventListener("click", closePopupByOverlay);
+  popupAvatarEdit.addEventListener("click", (evt) => {
+    if (evt.target === evt.currentTarget) {
+      const form = document.querySelector('#form__avatar');
+      clearValidation(form, validationConfig)
+      closePopup(popupAvatarEdit);
+    }
+  });
 }
 
 // функция добавления класса "popup_is-animated" для плавного открытия popup в дальнейшем
@@ -202,11 +223,9 @@ function addFormNewPlaceSubmitHandler(openCardPopapCallback) {
       link: inputPlaceLink.value,
     };
 
-    Promise.all([createCardApi(cardData), loadProfilInformation()])
-      .then((data) => {
-        const cardData = data[0];
-        const profileData = data[1];
-        createAndAddCard(cardData, profileData._id, openCardPopapCallback);
+    createCardApi(cardData)
+      .then((cardData) => {
+        createAndAddCard(cardData, userProfile._id, openCardPopapCallback);
         closePopup(popupNewPlace);
       })
       .catch((err) => console.log(err))
@@ -233,6 +252,13 @@ function openCardPopap(cardData) {
 function addCards(openCardPopapCallback) {
   Promise.all([getAllCards(), loadProfilInformation()])
     .then(([cardsData, profileData]) => {
+      document.querySelector(".profile__title").textContent = profileData.name;
+    document.querySelector(".profile__description").textContent =
+      profileData.about;
+    document.querySelector(".profile__image").style =
+      "background-image: url('" + profileData.avatar + "')";
+
+      userProfile = profileData;
       cardsContainer.innerHTML = "";
       cardsData.forEach(function (element) {
         createAndAddCardEnd(element, profileData._id, openCardPopapCallback);
@@ -240,8 +266,5 @@ function addCards(openCardPopapCallback) {
     })
     .catch((err) => console.log(err));
 }
-
-// экспорт <div class="popup__content"> для реализации закрытия popup кликом вне popup__content
-export const popupContent = document.querySelector(".popup__content");
 
 export { openCardPopap };
