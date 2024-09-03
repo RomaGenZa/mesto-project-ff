@@ -1,13 +1,15 @@
-import { deletePost, likeCard, disLikeCard } from "./api";
-import { cardsContainer } from "./index";
+import { deletePost, likeCard, disLikeCard, handleError } from "./api";
+
+// @todo: DOM узлы
+export const cardsContainer = document.querySelector(".places__list");
 
 // @todo: Темплейт карточки
-const template = document.querySelector("#card-template").content;
+export const template = document.querySelector("#card-template").content;
 
 // @todo: Функция создания и закрытие карточки
-function createCard(
+export function createCard(
   cardData,
-  profileData,
+  profileId,
   deleteCardCallback,
   likeCardCallback,
   openCardPopapCallback
@@ -19,76 +21,58 @@ function createCard(
   cloneTemplate.querySelector(".card__title").textContent = cardData.name;
   const cardElement = cloneTemplate.querySelector(".places__item");
   const basket = cloneTemplate.querySelector(".card__delete-button");
-  if (cardData.owner._id !== profileData._id) {
+  if (cardData.owner._id !== profileId) {
     basket.style.visibility = "hidden";
   } else {
     basket.addEventListener("click", function () {
-      deletePost(cardData._id).then(() => {
-        deleteCardCallback(cardElement);
-      })
+      deletePost(cardData._id)
+        .then(() => {
+          deleteCardCallback(cardElement);
+        })
+        .catch((err) => console.log(err));
     });
   }
 
   const btnLike = cloneTemplate.querySelector(".card__like-button");
-  const likeCounter = btnLike.querySelector('.number_of_likes');
+  const likeCounter = btnLike.querySelector(".number_of_likes");
 
-  let isLiked = cardData.likes.map((p) => p._id).includes(profileData._id)
-  likeCardCallback(cardElement, isLiked)
-  btnLike.addEventListener("click", function () { 
+  let isLiked = cardData.likes.map((p) => p._id).includes(profileId);
+  likeCardCallback(cardElement, isLiked);
+  btnLike.addEventListener("click", function () {
     if (isLiked) {
-      disLikeCard(cardData._id).then ((cardData) => {
-        isLiked = cardData.likes.map((p) => p._id).includes(profileData._id)
-        likeCardCallback(cardElement, isLiked)
-        likeCounter.textContent = cardData.likes.length;
-      })
+      disLikeCard(cardData._id)
+        .then((newCardData) => {
+          isLiked = false;
+          likeCardCallback(cardElement, isLiked);
+          likeCounter.textContent = newCardData.likes.length;
+        })
+        .catch((err) => console.log(err));
     } else {
-      likeCard(cardData._id).then((cardData) => {
-        isLiked = cardData.likes.map((p) => p._id).includes(profileData._id)
-        likeCardCallback(cardElement, isLiked)
-        likeCounter.textContent = cardData.likes.length;
-      })
+      likeCard(cardData._id)
+        .then((newCardData) => {
+          isLiked = true;
+          likeCardCallback(cardElement, isLiked);
+          likeCounter.textContent = newCardData.likes.length;
+        })
+        .catch((err) => console.log(err));
     }
   });
 
   likeCounter.textContent = cardData.likes.length;
 
-  cardImg.addEventListener("click", function (evt) {
+  cardImg.addEventListener("click", function () {
     openCardPopapCallback(cardData);
   });
   return cloneTemplate;
 }
 
 // @todo: Функция удаления карточки
-function deleteCard(cardElement) {
+export function deleteCard(cardElement) {
   cardElement.remove();
 }
 
-// создание и добавление в начало
-export function createAndAddCard(cardData, profileData, openCardPopapCallback) {
-  const card = createCard(
-    cardData,
-    profileData,
-    deleteCard,
-    callingLike,
-    openCardPopapCallback
-  );
-  cardsContainer.prepend(card);
-}
-
-// создание и добавление в конец
-export function createAndAddCardEnd(cardData, profileData, openCardPopapCallback) {
-  const card = createCard(
-    cardData,
-    profileData,
-    deleteCard,
-    callingLike,
-    openCardPopapCallback
-  );
-  cardsContainer.append(card);
-}
-
 // функция лайка
-function callingLike(element, isLiked) {
+export function callingLike(element, isLiked) {
   const btnLike = element.querySelector(".card__like-button");
 
   if (isLiked) {
@@ -97,5 +81,3 @@ function callingLike(element, isLiked) {
     btnLike.classList.remove("card__like-button_is-active");
   }
 }
-
-export { callingLike };

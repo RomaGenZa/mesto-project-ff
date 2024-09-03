@@ -1,6 +1,3 @@
-import { data } from "autoprefixer";
-
-// import { data } from "autoprefixer";
 const config = {
   baseUrl: "https://nomoreparties.co/v1/wff-cohort-21",
   headers: {
@@ -16,7 +13,7 @@ const handleResponse = (res) => {
   return Promise.reject(`Ошибка: ${res.status}`);
 };
 
-const handleError = (err) => {
+export const handleError = (err) => {
   console.log(err); 
 };
 
@@ -26,7 +23,6 @@ export const getAllCards = () => {
     method: "GET"
   })
   .then(handleResponse)
-  .catch(handleError);
 }
 
 export const createCard = (data) => {
@@ -36,7 +32,6 @@ export const createCard = (data) => {
     body: JSON.stringify(data),
   })
   .then(handleResponse)
-  .catch(handleError);
 }
 
 export const loadProfilInformation = () => {
@@ -45,7 +40,6 @@ export const loadProfilInformation = () => {
     method: "GET",
   })
   .then(handleResponse)
-  .catch(handleError);
 }
 
 export const editProfile = (data) => {
@@ -55,7 +49,6 @@ export const editProfile = (data) => {
     body: JSON.stringify(data),
   })
   .then(handleResponse)
-  .catch(handleError);
 }
 
 export const deletePost = (id) => {
@@ -64,7 +57,6 @@ export const deletePost = (id) => {
     headers: config.headers,
   })
   .then(handleResponse)
-  .catch(handleError);
 }
 
 export const likeCard = (id) => {
@@ -73,7 +65,6 @@ export const likeCard = (id) => {
     headers: config.headers,
   })
   .then(handleResponse)
-  .catch(handleError);
 }
 
 export const disLikeCard = (id) => {
@@ -82,7 +73,6 @@ export const disLikeCard = (id) => {
     headers: config.headers,
   })
   .then(handleResponse)
-  .catch(handleError);
 }
 
 export const updateAvatar = (data) => {
@@ -92,5 +82,4 @@ export const updateAvatar = (data) => {
     body: JSON.stringify(data)
   })
   .then(handleResponse)
-  .catch(handleError);
 }
