@@ -26,20 +26,11 @@ export function enableValidation(conf) {
           errorString.classList.add(conf.errorClass);
           errorString.textContent = input.validationMessage;
         } else {
-          input.classList.remove(conf.inputErrorClass);
-          errorString.classList.remove(conf.errorClass);
-          errorString.textContent = "";
+          removeValidationError(input, conf);
         }
 
-        button.disabled = allInputs.some((input) => {
-          return !input.validity.valid;
-        })
-
-        if (button.disabled) {
-          button.classList.add(conf.inactiveButtonClass);
-        } else {
-          button.classList.remove(conf.inactiveButtonClass);
-        }
+        const isActive = allInputs.every((input) => input.validity.valid)
+        activateButton(button, isActive, conf)
       });
     });
   });
@@ -47,17 +38,27 @@ export function enableValidation(conf) {
 
 export function clearValidation(form, conf) {
   const button = form.querySelector(conf.submitButtonSelector);
-  button.disabled = true;
-  button.classList.add(conf.inactiveButtonClass);
+  activateButton(button, false, conf)
 
   const allInputs = Array.from(form.querySelectorAll(conf.inputSelector));
-  allInputs.forEach(function (input) {
-    const errorString = form.querySelector(`.${input.id}-error`);
+  allInputs.forEach((input) => removeValidationError(input, conf));
+}
 
-    input.classList.remove(conf.inputErrorClass);
-    errorString.classList.remove(conf.errorClass);
-    errorString.textContent = "";
-  });
+function removeValidationError(input, conf) {
+  const errorString = form.querySelector(`.${input.id}-error`);
+
+  input.classList.remove(conf.inputErrorClass);
+  errorString.classList.remove(conf.errorClass);
+  errorString.textContent = "";
+}
+
+function activateButton(button, isActive, conf) {
+  button.disabled = !isActive
+  if (isActive) {
+    button.classList.remove(conf.inactiveButtonClass);
+  } else {
+    button.classList.add(conf.inactiveButtonClass);
+  }
 }
 
 export const validationConfig = {
